@@ -35,7 +35,24 @@ export class RegistroComponent {
     this.coleccionusuarios.push(credenciales)
     console.log(credenciales)
     console.log(this.coleccionusuarios)
+    this.LimpiarInput()
   }
 
+  LimpiarInput() {
+
+    const Input = {
+      // guardamos la informacion ingresada por el usuario para comparar con los guardados
+
+      uid: this.usuarios.uid = '',
+      nombre: this.usuarios.nombre = '',
+      apellido: this.usuarios.apellido = '',
+      email: this.usuarios.email = '',
+      rol: this.usuarios.rol = '',
+      password: this.usuarios.password = ''
+
+    }
+alert('¡Te registraste con éxito!')
+
+  }
 }
 

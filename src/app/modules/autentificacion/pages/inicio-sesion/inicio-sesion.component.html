@@ -3,6 +3,18 @@
     <div>
         <!--Nombre del Usuario-->
         <mat-form-field appearence="fill">
+            <mat-label>Ingrese ID del Usuario</mat-label>
+            <input [(ngModel)]="usuarios.uid" matInput placeholder="PlaceHolder" required>
+        </mat-form-field>
+    </div>
+
+
+
+
+    
+    <div>
+        <!--Nombre del Usuario-->
+        <mat-form-field appearence="fill">
             <mat-label>Ingrese nombre del Usuario</mat-label>
             <input [(ngModel)]="usuarios.nombre" matInput placeholder="PlaceHolder" required>
         </mat-form-field>
