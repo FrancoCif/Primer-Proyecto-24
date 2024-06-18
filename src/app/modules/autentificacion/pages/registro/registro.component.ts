@@ -4,7 +4,7 @@ import { Usuario } from 'src/app/models/usuario';
 
 import { AuthServiceService } from '../../services/auth.service.service';
 import { Router } from '@angular/router';
-
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -30,7 +30,8 @@ export class RegistroComponent {
 
   constructor(
     public servicioAuth: AuthServiceService,
-    public servicioRutas: Router
+    public servicioRutas: Router,
+    public servicioFirestore: FirestoreService,
   ) {
 
 
@@ -71,11 +72,15 @@ export class RegistroComponent {
 .catch(res=>[
   alert('Hubo un error al registrar un nuevo usuario :(\n'+Error)
   ])
+//constante uid captura el identificcador de la BD 
+  const uid = await this.servicioAuth.obtenerUid()
+// se le asigna el valor el atributo de la interfaz esta constante
+this.usuarios.uid=uid
 
-    //mostramos credenciales por consola
-    //this.coleccionusuarios.push(credenciales)
-    //console.log(credenciales)
-    //console.log(this.coleccionusuarios)
+//llamamos a la funcion guardUsuario()
+this.guardarUsuario();
+
+//llamamos a la funcion limpiarinputs para ejecutarla
     this.LimpiarInput()
   }
 
@@ -94,6 +99,18 @@ export class RegistroComponent {
     }
     alert('¡Te registraste con éxito!')
 
+  }
+
+  async guardarUsuario(){
+    this.servicioFirestore.agregarUsuario(this.usuarios, this.usuarios.uid)
+  
+    .then(res => {
+      console.log(this.usuarios)
+    })
+  
+    .catch(err =>{
+      console.log('error =>',err)
+    })
   }
 }
 
