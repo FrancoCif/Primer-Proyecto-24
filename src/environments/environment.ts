@@ -1,6 +1,6 @@
 export const environment={
     production: false,
-//sacamos la palabra const y cmabamos el igual por dos puntitos
+//sacamos la palabra const y cambiamos el igual por dos puntitos
     firebaseConfig : {
         apiKey: "AIzaSyDsZWjELBv0gTKajoNWa0tXIFJ19OtGUXc",
         authDomain: "programacion-1612.firebaseapp.com",

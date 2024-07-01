@@ -1,33 +1,34 @@
+<mat-toolbar>
+  <button id="menusecciones" mat-icon-button class="example-icon" [matMenuTriggerFor]="seccion">
+    <mat-icon>menu</mat-icon>
+  </button>
 
-<!--Etiqueta que va a encapsular el contenido-->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <mat-menu #seccion="matMenu">
+    <button mat-menu-item routerLink="/inicio">Inicio</button>
+    <button mat-menu-item [matMenuTriggerFor]="producto">Productos</button>
+  </mat-menu>
+
+  <span>My App</span>
+
+  <!--se van a mostrar cuando las pantallas sea mayor a 700px-->
+  <button id="menuinicio" mat-button routerLink="/inicio">Inicio</button>
+
+  <!--Menu de productos-->
+  <button id="menuproductos" mat-button [matMenuTriggerFor]="producto">Productos</button>
+
+  <mat-menu #producto="matMenu">
+    <button mat-menu-item routerLink="/producto">general1</button>
+    <button mat-menu-item routerLinnk="/rareza">Rareza</button>
+    <button mat-menu-item routerLink="/tienda">Tienda</button>
+    <button mat-menu-item routerLink="/tipo">Tipo</button>
+  </mat-menu>
+
+
+  <span class="example-spacer"></span>
+  <!--Inicio de sesión el registro de un nuevo usuario-->
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+
+</mat-toolbar>

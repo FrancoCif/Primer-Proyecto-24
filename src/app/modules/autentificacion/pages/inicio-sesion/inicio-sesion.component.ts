@@ -3,6 +3,8 @@ import { Usuario } from 'src/app/models/usuario';
 import { AuthServiceService } from '../../services/auth.service.service';
 import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 import { Router } from '@angular/router';
+
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
@@ -71,10 +73,30 @@ export class InicioSesionComponent {
     const credenciales = {
 
       email: this.usuarios.email,
-      password: this.usuarios.password,
+      password: this.usuarios.password
     }
+    try {
 
-    const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+      //obrenemos
+      const usuarioBD = await this.servicioAuth.obtenerUsuario(credenciales.email)
+      if (!usuarioBD || usuarioBD.empty) {
+        alert('Correo electronico no registrado')
+        this.limpiarInput();
+        return;
+      }
+
+      const usuarioDoc = usuarioBD.docs[0];
+      const usuarioData = usuarioDoc.data() as Usuario
+      const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
+
+
+      if (hashedPassword !== usuarioData.password) {
+        alert('contraseña incorrecta')
+        this.usuarios.password = '';
+        return;
+      }
+
+      const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
       .then(res => {
         alert('Se pudo ingresar con exito')
 
@@ -88,6 +110,12 @@ export class InicioSesionComponent {
       }
       )
 
+    } catch(error){
+      this.limpiarInput();
+    }
+
+    
+
   }
   limpiarInput() {
     const inputs = {
@@ -95,18 +123,7 @@ export class InicioSesionComponent {
       email: this.usuarios.email = ''
     }
   }
-  /*for (let i = 0; i <= this.datos.length; i++) {
-    //guardamos en 'credencial'  los valores cargados previamente uno por uno
-    const credencial: any = this.datos[i]
-    if (credencial.uid === credenciales.uid && credencial.nombre === credenciales.nombre && credencial.apellido === credenciales.apellido && credencial.email === credenciales.email && credencial.rol === credenciales.rol && credencial.password === credenciales.password) {
-      alert("Ingresaste")
-      break
-    }
-    else {
-      alert("no ingresaste")
-      break
-    }
-  }*/
+
 
 }
 

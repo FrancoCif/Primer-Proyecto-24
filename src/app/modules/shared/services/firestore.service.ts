@@ -27,7 +27,7 @@ export class FirestoreService {
     /*
     
     creamos una nueva promesa junto a los metodos 
-    resolve: promesa resuelta=> funcionaien
+    resolve: promesa resuelta=> funciona bien
     reject: promesa rechazada -> no funciona
     */
     return new Promise(async (resolve, reject) => {
