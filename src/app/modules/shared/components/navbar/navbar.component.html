@@ -4,8 +4,10 @@
   </button>
 
   <mat-menu #seccion="matMenu">
-    <button mat-menu-item routerLink="/inicio">Inicio</button>
     <button mat-menu-item [matMenuTriggerFor]="producto">Productos</button>
+    <button mat-menu-item (click)="ingresar()" *ngIf="logueado" routerLink="/registro">Registrarse</button>
+    <button mat-menu-item (click)="ingresar()" *ngIf="logueado" routerLink="/inicio-sesion">Iniciar Sesión</button>
+    <button mat-menu-item (click)="cerrarSesion()" *ngIf="deslogueado">Cerrar Sesión</button>
   </mat-menu>
 
   <span>My App</span>

@@ -51,6 +51,8 @@ return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   obtenerUsuario(email:string){
+    //retornamos el serviciofirestore de la coleccion de usuarios, buscamos una referencia en los email guardados y los comparamos con los que ingrese el usuario y lo obtiene con el .get() 
+    //lo vuelve una promesa 
  return this.ServicioFirestore.collection('usuarios',ref => ref.where('email','==', email)).get().toPromise()
   }
 }
