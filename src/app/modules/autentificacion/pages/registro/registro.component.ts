@@ -8,6 +8,9 @@ import { FirestoreService } from 'src/app/modules/shared/services/firestore.serv
 
 import * as CryptoJS from 'crypto-js'
 
+//paqueteria de alertas personalizadas
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -64,7 +67,11 @@ export class RegistroComponent {
     const res = this.servicioAuth.registrar(credenciales.email, credenciales.password)
 //el metodo then es una promesa que devuelve el mismo valor si todo sale bien
     .then(res=>{
-      alert('Se puo registrar con éxito')
+      Swal.fire({
+        title: "Buen Trabajo!",
+        text: "Se pudo registrar con éxito!",
+        icon: "success"
+      });
 
 //el etodo navigate nos redirecciona  aotra vista
       this.servicioRutas.navigate(['/inicio'])
@@ -72,8 +79,12 @@ export class RegistroComponent {
     })
 
     //el metodo catch captura uuna falla y lo vuelve un error cuando la promesa sallga mal
-.catch(res=>[
-  alert('Hubo un error al registrar un nuevo usuario :(\n'+Error)
+.catch(error=>[
+  Swal.fire({
+    title: "Oh, oh!",
+    text: "Ocurrió un error al registrar el usuario \n"+error,
+    icon: "error"
+  })
   ])
 //constante uid captura el identificcador de la BD 
   const uid = await this.servicioAuth.obtenerUid()
