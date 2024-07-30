@@ -8,7 +8,8 @@ const routes: Routes = [
   // {path:"componente2",component:Componente2Component},
   { path: "", component: InicioComponent },
   { path: "", loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
-  {path: "",loadChildren:()=>import('./modules/autentificacion/autentificacion.module').then(m=>m.AutentificacionModule)}
+  { path: "", loadChildren: () => import('./modules/autentificacion/autentificacion.module').then(m => m.AutentificacionModule) },
+  { path: "", loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) }
 ];
 
 @NgModule({
