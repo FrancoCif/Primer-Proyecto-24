@@ -1,38 +1,93 @@
+<!-- Tabla de Productos  -->
+
 <table class="table">
-<thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Descripción</th>
-        <th scope="col">Categoría</th>
-        <th scope="col">Imagen</th>
-        <th scope="col">Acciones</th>
-    </tr>
-</thead>
-<tbody>
-    <tr *ngFor="let producto of coleccionProductos">
-        <th scope="row">1</th>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let producto of coleccionProductos">
+            <th scope="row">1</th>
 
-        <td>
-            <img src="{{producto.imagen}}" alt="{{producto.alt}}">
-        </td>
-        <td>{{producto.nombre}}</td>
-        <td>{{producto.precio}}</td>
-        <td>{{producto.descripcion}}</td>
-        <td>{{producto.categoria}}</td>
+            <td>
+                <img src="{{ producto.imagen }}" alt="{{ producto.alt }}" />
+            </td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.categoria }}</td>
 
-        <!-- ACCIONES -->
-         <td>
-            <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning">
-                <mat-icon>edit</mat-icon>
-            </button>
-         </td>
-         <td>
-            <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger">
-                <mat-icon>delete</mat-icon>
-            </button>
-         </td>
-    </tr>
-</tbody>
+            <!-- ACCIONES -->
+            <td>
+                <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+            <td>
+                <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
 </table>
+
+<!-- Botón de "Nuevos Prooductos" -->
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#agregarPrducto">
+    Agregar un nuevo producto
+</button>
+
+<!-- Modal para agregar  nuevo producto -->
+<div class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Titulo de modal -->
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Ingrese un nuevo producto:
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <!-- Cuerpo de modal -->
+            <div [formGroup]="producto" class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Ingrese el nombre de producto</label>
+                    <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Medias de Abejitas">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese precio de producto</label>
+                    <input type="number" class="form-control" formControlName="precio" placeholder="Ej: $10000">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese una descripción del producto</label>
+                    <input type="text" class="form-control" formControlName="descripcion" placeholder="Ej: medias unisex con dibujos de abejas para niños">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese la categoria del producto</label>
+                    <select class="form-control form-select" formControlName="categoria">
+                            <option selected>Elija una opción</option>
+                            <option value="running">Running</option>
+                            <option value="urbano">Urbano</option>
+                            <option value="training">Training</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingrese Imagen de producto</label>
+                    <input type="text" class="form-control" formControlName="imagen" placeholder="Ingrese vinculo de imagen">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" (click)="agregarProducto()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

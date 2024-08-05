@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Producto } from 'src/app/models/producto';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class CrudService {
   private productosCollection: AngularFirestoreCollection<Producto>
 
