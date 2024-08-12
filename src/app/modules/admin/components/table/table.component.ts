@@ -11,6 +11,11 @@ export class TableComponent {
   //Creamos colección local de productos -> la definimos como array
   coleccionProductos: Producto[] = [];
 
+
+  productoseleccionado!: Producto // ! <- tomar valores vacíos 
+
+  modalVisibleProducto: boolean = false;
+
   //Definimos formulario para los productos
 
   /*
@@ -29,7 +34,7 @@ export class TableComponent {
 
   constructor(public servicioCrud: CrudService) { }
 
-  ngOninit(): void { 
+  ngOnInit(): void {
     this.servicioCrud.obtenerProducto().subscribe(producto => {
       this.coleccionProductos = producto
     })
@@ -55,5 +60,22 @@ export class TableComponent {
         })
     };
 
+  }
+
+  mostrarBorrar(productoseleccionado: Producto) {
+
+
+    this.modalVisibleProducto = true
+    this.productoseleccionado = productoseleccionado
+  }
+
+  borrarProducto() {
+    this.servicioCrud.eliminarPorducto(this.productoseleccionado.idProducto)
+      .then(respuesta => {
+        alert("Se ha podido elimiar con éxito")
+      })
+      .catch(error => {
+        alert("Ha ocurrido un error al eliminar el producto: \n" + error)
+      })
   }
 }

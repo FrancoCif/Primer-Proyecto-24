@@ -35,13 +35,35 @@ export class CrudService {
   //AGREGAR productos
 
 
-// snapshot  => toma captura del estado de los datos
-// pipe => tuberías que retornan un nuevo arreglo
-//map => resguuarda la nueva informacion y la envia como un documento
+  // snapshot  => toma captura del estado de los datos
+  // pipe => tuberías que retornan un nuevo arreglo
+  //map => resguuarda la nueva informacion y la envia como un documento
 
-  obtenerProducto(){
-    return this.productosCollection.snapshotChanges().pipe(map(action => action.map(a => a.payload.doc.data())))
+  obtenerProducto() {
+    return this.productosCollection.snapshotChanges()
+      .pipe(map(action => action.map(a => a.payload.doc.data())))
+  }
+  
+
+  //ELIMINAR productos
+  eliminarPorducto(idProducto: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        const respuesta = this.productosCollection.doc(idProducto).delete()
+
+        resolve(respuesta)
+      }
+      catch (error){
+        reject(error)
+      }
+    })
   }
   //EDITAR productos
-  //ELIMINAR productos
+  modificarProducto(idProducto: string, nuevaData: Producto){
+
+    /*
+    Sccedemos a la coleccion "productos" de la BD, buscamos el ID del producto seleccionado y lo actualizamos con el método update, enviando la nueva informacion
+    */
+return this.database.collection('productos').doc(idProducto).update(nuevaData)
+  }
 }
