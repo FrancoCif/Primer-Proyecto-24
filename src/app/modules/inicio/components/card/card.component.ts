@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/compat/firestore';
+import { CrudService } from 'src/app/modules/admin/services/crud.service';
 
 
 //IMPORTAMOS INTERFAZ
-import { Zapatilla } from 'src/app/models/zapatilla';
+import { Producto } from 'src/app/models/producto';
 
 @Component({
   selector: 'app-card',
@@ -11,31 +13,12 @@ import { Zapatilla } from 'src/app/models/zapatilla';
 })
 export class CardComponent {
 
-//propiedad publica tipo array
-public info: Zapatilla[]
-
-constructor() {
-  this.info = [
-    {
-      id: "",
-      nombre: "Puma",
-      modelo: "Suede XL x Pleasures",
-      año: 2023,
-      talle: 11,
-      imagen: "https://highxtar.com/wp-content/uploads/2024/01/thumb-puma-x-pleasures-suede-xl-1440x1080.jpg",
-      alt: "Puma Suede XL x Pleasures",
-    },
-    {
-      id: "",
-      nombre: "Adidas",
-      modelo: "Campus 00s",
-      año: 2023,
-      talle: 11,
-      imagen: "https://www.copncop.com/img/cms/adidas-campus-00s-red-copncop-blog.jpg",
-      alt: "Campus 00s",
-    },
-     
-  ]
-}
+coleccionProducto2: Producto[]=[]
+  constructor(public servicioCrud: CrudService ){}
+  ngOnInit(): void {
+    this.servicioCrud.obtenerProducto().subscribe(producto => {
+      this.coleccionProducto2 = producto
+    })
+  }
 
 }
